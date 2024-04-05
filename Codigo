@@ -1,0 +1,204 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+#define MaxTamC 5
+
+class Cola{
+	protected:
+		int frente;
+		int final;
+		int listaCola[MaxTamC];
+		int elemento;
+	public:
+		Cola(); //constructor
+		~Cola(); //destructor
+		void insertarC(int elemento);
+		int quitarC();
+		void borrarC();
+		int frenteC();
+		int colavaciaC();
+		int colallenaC();
+		void imprimirC();
+		void imprimirTC();
+		int may_menorC();
+		int promedio();
+		
+	
+};		
+				
+Cola::Cola(){
+frente = 0;
+final = -1;
+}
+
+Cola::~Cola() //Destructor
+{
+	cout << "\nGracias por utilizar este programa. \n";
+}
+// operaciones de modificacion de la cola
+void Cola::insertarC(int _elemento){
+
+	if (!colallenaC()){
+		final++;
+		listaCola[final] = _elemento;
+		cout << "\n\t|	Se inserta la cola: " << _elemento << " -> final: " << final << "	|";
+    
+  }else{
+    cout <<"\n\t|		Desbordamiento pila				|";
+  }
+}
+
+int Cola::quitarC(){
+	if (colavaciaC()){
+    	cout <<"\n\t|	Se intenta sacar un elemento en pila vacia";
+  	}	else{
+    	cout << "\n\t|	Se elimina la cola: " << listaCola[frente] << " -> cola: " << frente;
+  		} 
+		for(int i=0; i < final; i++){
+		listaCola[i] = listaCola[i + 1];
+		}
+		final--;
+  		
+	
+	}
+
+void Cola::borrarC(){
+frente = 0;
+final = -1;
+}
+// acceso a la cola
+int Cola::frenteC(){
+	if (!colavaciaC()){
+		return listaCola[frente++];
+	}else{
+	return colallenaC();
+	}
+}
+// metodos de verificacion del estado de la cola
+int Cola::colavaciaC(){
+	return frente > final;
+}
+
+int Cola::colallenaC(){
+	return final == MaxTamC - 1;
+}
+
+void Cola::imprimirC(){
+  if (colavaciaC()){
+    cout << "\n\t|-------------------------------------------------|" ;
+    cout << "\n\t|La cola esta vacia, con el valor del final:" << final << endl;
+  }
+
+  else if (colallenaC()) {
+    cout << "\n\t|-------------------------------------------------|" ;
+    cout << "\n\t|La cola esta llena, con el valor en el final:" << final << endl;
+
+    cout << "\n\t|	El valor de la cola en: " << final << " es: " << listaCola[final] << endl;
+  }
+
+  else {
+    cout << "\n\t|-------------------------------------------------|" ;
+    cout << "\n\t|La cola no esta ni llena ni vacia, los valores de la cola son:" << endl;
+    for (int i = 0; i < final + 1; i++ ){
+      cout << "\n\t|	En la cola: " << i << " el valor es: " << listaCola[i] << "		|" ;  
+    }
+  }
+  cout << "\n\t|          El tama�o de la cola es:              " << MaxTamC << "|" << endl;
+
+}
+int Cola::may_menorC(){
+	int mayor;
+	for (int i = 0; i < final + 1; i++){
+    	cout << "\n\t|	En la cola: " << i  << " el valor es: " << listaCola[i] << "	|";  
+       if (listaCola[i] > mayor){
+      		mayor = listaCola[i];
+			  }
+	}
+	int menor = mayor;
+	
+	for (int i = 0; i < final + 1; i++){
+    	if (listaCola[i] < menor){
+       		menor = listaCola[i];
+    	}
+	}
+  cout << "\n\t|      El numero menor es:                       " << menor << "|";
+  cout << "\n\t|      Y el numero mayor es:                     " << mayor << "|";
+  
+}
+int Cola::promedio(){
+	int promedio = 0;
+	int suma = 0;
+	for(int i = 0; i < MaxTamC; i++){
+		suma += listaCola[i];
+	}
+	promedio = (suma / MaxTamC) ;
+	
+	cout << "\n\t El numero promedio es: " << promedio; 
+}
+void Cola::imprimirTC(){
+	cout << "\n\t|            Los valores de la cola son:           |" << endl;
+    for (int i = 0; i < final + 1; i++ ){
+      cout << "\t|	En la cola: " << i << " el valor es: " << listaCola[i] << "		|" << endl;  
+    }
+ cout << "\n\t|          El tama�o de la cola es:              " << MaxTamC << "|" << endl;
+}
+int main(){
+	int menu, valor1, valor2;
+  	string continuar;
+	Cola P1;
+
+do {
+
+  cout << "\n\t|--------------------------------------------------|" ;
+  cout << "\n\t|Este programa muestra una cola Lineal             |" ;
+  cout << "\n\t|--------------------------------------------------|" ;
+  cout << "\n\t|      Seleccione la opcion que desea              |" ;
+  cout << "\n\t|1.Insertar valores de la Cola                     |" ;
+  cout << "\n\t|2.Eliminar valores de la Cola                     |" ;
+  cout << "\n\t|3.Saber el valor mayor y menor                    |" ;
+  cout << "\n\t|4.Saber el valor promedio                         |" ;
+  cout << "\n\t|5.Ver valores de la cola                          |" ;
+  cout << "\n\t|--------------------------------------------------|" ; 
+cout << "\n\t\t\t\t" ; cin >> menu;
+
+switch (menu)
+{
+case 1: cout << "\n\t|--------------------------------------------------|" ;
+  cout << "\n\t|          Usted selecciono la opcion 1.           |" ;
+  P1.imprimirC();
+  for (int i = 0; i < MaxTamC; i++){
+    cout << "\n\t| Digite el valor |" << i + 1 <<": "; cin >> valor1;
+        P1.insertarC(valor1);
+  } break;
+  
+case 2: cout << "\n\t|          Usted selecciono la opcion 2.           |" ;
+  P1.imprimirC();
+  cout << "\n\t| Cuantos valores desea eliminar? |" ; cin >> valor2;
+  for (int i = 0; i < valor2; i++){
+    P1.quitarC();
+  } break;
+  
+case 3: cout << "\n\t|          Usted selecciono la opcion 3.           |" ;
+    P1.may_menorC();
+   break;
+   
+case 4: cout << "\n\t|          Usted selecciono la opcion 4.           |" ;
+    P1.promedio();
+   break;
+   
+case 5: cout << "\n\t|          Usted selecciono la opcion 5.           |" ;
+    P1.imprimirTC();
+   break;
+
+default:cout << "\n\t|        Gracias por utilizar el programa          |" ;
+  break;
+}
+cout << "\n\t|--------------------------------------------------|" ;
+cout << "\n\t|          Desea continuar 'S' o 'N'               |" ; cin >> continuar;
+
+}
+while (continuar == "S" || continuar == "s" );
+
+return 0;
+}
