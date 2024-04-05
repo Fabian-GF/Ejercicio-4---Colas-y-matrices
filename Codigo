@@ -2,16 +2,15 @@
 #include <cstdlib>
 
 using namespace std;
-#define MaxTamC 5
 
 class Cola{
 	protected:
 		int frente;
 		int final;
-		int listaCola[MaxTamC];
+		int* listaCola;
 		int elemento;
 	public:
-		Cola(); //constructor
+		Cola(int); //constructor
 		~Cola(); //destructor
 		void insertarC(int elemento);
 		int quitarC();
@@ -23,13 +22,17 @@ class Cola{
 		void imprimirTC();
 		int may_menorC();
 		int promedio();
+		void maxTamC();
+		int tamanio;
 		
 	
 };		
 				
-Cola::Cola(){
+Cola::Cola(int size){
 frente = 0;
 final = -1;
+tamanio = size;
+listaCola = new int[tamanio];
 }
 
 Cola::~Cola() //Destructor
@@ -81,7 +84,7 @@ int Cola::colavaciaC(){
 }
 
 int Cola::colallenaC(){
-	return final == MaxTamC - 1;
+	return final == tamanio - 1;
 }
 
 void Cola::imprimirC(){
@@ -104,7 +107,7 @@ void Cola::imprimirC(){
       cout << "\n\t|	En la cola: " << i << " el valor es: " << listaCola[i] << "		|" ;  
     }
   }
-  cout << "\n\t|          El tama�o de la cola es:              " << MaxTamC << "|" << endl;
+  cout << "\n\t|          El tama�o de la cola es:              " << tamanio << "|" << endl;
 
 }
 int Cola::may_menorC(){
@@ -129,10 +132,10 @@ int Cola::may_menorC(){
 int Cola::promedio(){
 	int promedio = 0;
 	int suma = 0;
-	for(int i = 0; i < MaxTamC; i++){
+	for(int i = 0; i < tamanio; i++){
 		suma += listaCola[i];
 	}
-	promedio = (suma / MaxTamC) ;
+	promedio = (suma / tamanio) ;
 	
 	cout << "\n\t El numero promedio es: " << promedio; 
 }
@@ -141,13 +144,21 @@ void Cola::imprimirTC(){
     for (int i = 0; i < final + 1; i++ ){
       cout << "\t|	En la cola: " << i << " el valor es: " << listaCola[i] << "		|" << endl;  
     }
- cout << "\n\t|          El tama�o de la cola es:              " << MaxTamC << "|" << endl;
+ cout << "\n\t|          El tama�o de la cola es:              " << tamanio << "|" << endl;
 }
+
+void Cola::maxTamC(){
+	cout << "\n\t|--------------------------------------------------|" ;
+	cout << "\n\t|Ingrese el tamaño de la Cola						|" ;
+	cin >> tamanio;
+	listaCola = new int[tamanio];
+}
+
 int main(){
 	int menu, valor1, valor2;
   	string continuar;
-	Cola P1;
-
+	Cola P1(0);
+	P1.maxTamC();
 do {
 
   cout << "\n\t|--------------------------------------------------|" ;
@@ -167,7 +178,7 @@ switch (menu)
 case 1: cout << "\n\t|--------------------------------------------------|" ;
   cout << "\n\t|          Usted selecciono la opcion 1.           |" ;
   P1.imprimirC();
-  for (int i = 0; i < MaxTamC; i++){
+  for (int i = 0; i < P1.tamanio; i++){
     cout << "\n\t| Digite el valor |" << i + 1 <<": "; cin >> valor1;
         P1.insertarC(valor1);
   } break;
