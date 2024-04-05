@@ -8,10 +8,11 @@ class Cola{
 	protected:
 		int frente;
 		int final;
-		int listaCola[MaxTamC];
+		int* listaCola;
 		int elemento;
+		int tamaño;
 	public:
-		Cola(); //constructor
+		Cola(int); //constructor
 		~Cola(); //destructor
 		void insertarC(int elemento);
 		int quitarC();
@@ -23,13 +24,16 @@ class Cola{
 		void imprimirTC();
 		int may_menorC();
 		int promedio();
+		void maxTamC();
 		
 	
 };		
 				
-Cola::Cola(){
+Cola::Cola(int size){
 frente = 0;
 final = -1;
+tamaño = size;
+listaCola = new int[tamaño];
 }
 
 Cola::~Cola() //Destructor
@@ -143,11 +147,19 @@ void Cola::imprimirTC(){
     }
  cout << "\n\t|          El tama�o de la cola es:              " << MaxTamC << "|" << endl;
 }
+
+void Cola::maxTamC(){
+	cout << "\n\t|--------------------------------------------------|" ;
+	cout << "\n\t|Ingrese el tamaño de la Cola						|" ;
+	cin >> tamaño;
+	listaCola = new int[tamaño];
+}
+
 int main(){
 	int menu, valor1, valor2;
   	string continuar;
-	Cola P1;
-
+	Cola P1(0);
+	P1.maxTamC();
 do {
 
   cout << "\n\t|--------------------------------------------------|" ;
